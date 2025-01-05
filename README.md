@@ -1,6 +1,6 @@
 # @omnipixel/payload-oauth2-plus
 
-Enhanced OAuth2 plugin for Payload CMS with robust Apple OAuth support. This package extends the excellent [payload-oauth2](https://github.com/WilsonLe/payload-oauth2) plugin with additional features and improvements.
+Enhanced OAuth2 plugin for Payload CMS with Apple OAuth support. This package extends the excellent [payload-oauth2](https://github.com/WilsonLe/payload-oauth2) plugin with additional features and improvements.
 
 ## Features
 
@@ -8,7 +8,7 @@ Enhanced OAuth2 plugin for Payload CMS with robust Apple OAuth support. This pac
 - Full Apple OAuth support with `form_post` response mode
 - Improved type safety
 - Better error handling
-- Comprehensive examples
+
 
 ## Installation
 
