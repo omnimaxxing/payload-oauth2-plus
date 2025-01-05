@@ -1,8 +1,8 @@
-import { AuthStrategy, type CollectionConfig } from "payload";
+import type { AuthStrategy, CollectionConfig } from "payload";
 import { createAuthStrategy } from "./auth-strategy";
 import { createAuthorizeEndpoint } from "./authorize-endpoint";
 import { createCallbackEndpoint } from "./callback-endpoint";
-import { PluginTypes } from "./types";
+import type { PluginTypes } from "./types";
 
 export const modifyAuthCollection = (
   pluginOptions: PluginTypes,
@@ -38,6 +38,7 @@ export const modifyAuthCollection = (
     existingCollectionConfig.auth !== undefined &&
     existingCollectionConfig.auth.disableLocalStrategy === true &&
     pluginOptions.useEmailAsIdentity === true &&
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     fields.every((field: any) => field.name !== "email")
   ) {
     const existingEmailField = fields.find(
@@ -75,7 +76,8 @@ export const modifyAuthCollection = (
   // /////////////////////////////////////
   const endpoints = existingCollectionConfig.endpoints || [];
   endpoints.push(createAuthorizeEndpoint(pluginOptions));
-  endpoints.push(createCallbackEndpoint(pluginOptions));
+  const callbackEndpoints = createCallbackEndpoint(pluginOptions);
+  endpoints.push(...callbackEndpoints);
 
   return {
     ...existingCollectionConfig,

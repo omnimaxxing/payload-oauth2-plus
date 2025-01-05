@@ -14,7 +14,7 @@ import type { PluginTypes } from "./types";
 
 export const createCallbackEndpoint = (
   pluginOptions: PluginTypes,
-): Endpoint => {
+): Endpoint[] => {
   const handler: PayloadHandler = async (req: PayloadRequest) => {
     try {
       // Handle authorization code from both GET query params and POST body
@@ -240,11 +240,16 @@ export const createCallbackEndpoint = (
     }
   };
 
-  return {
-    // We use GET as the primary method since that's what most OAuth providers use
-    // The handler itself will accept both GET and POST internally
-    method: "get",
-    path: pluginOptions.callbackPath || "/oauth/callback",
-    handler,
-  };
+  return [
+    {
+      method: "get",
+      path: pluginOptions.callbackPath || "/oauth/callback",
+      handler,
+    },
+    {
+      method: "post",
+      path: pluginOptions.callbackPath || "/oauth/callback",
+      handler,
+    },
+  ];
 };
